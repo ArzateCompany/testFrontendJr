@@ -1,0 +1,26 @@
+.ocultar {
+  display: none;
+}
+
+table tbody tr:nth-child(odd) {
+  background-color: lightgreen;
+}
+
+table tbody tr:nth-child(even) {
+  background-color: lightblue;
+}
+
+table tbody tr:nth-child(3n) {
+  background-color: lightgrey;
+}
+
+.moneda::before {
+  content: "$ ";
+}
+
+#input-image {
+  width: 640px;
+  height: 360px;
+  object-fit: contain;
+  background-color: black;
+}
