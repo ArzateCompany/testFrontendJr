@@ -1,31 +1,64 @@
 import React, { Component } from 'react';
 import PageView from '../../components/layout/PageView';
 import List from '../../components/list/List';
-
-const imageUrls = [
-  'https://i.ibb.co/xhYs1zd/image-deep-earth.jpg',
-  'https://i.ibb.co/ZWN2H8Q/image-pocket-borealis.jpg',
-  'https://i.ibb.co/6RVFmz5/image-fisheye.jpg',
-  'https://i.ibb.co/nbZBLzR/image-curiosity.jpg',
-  'https://i.ibb.co/wy5kkHc/image-from-above.jpg'
-];
-
-let imageURL = 0
-
-
 export default class Exercise05 extends Component {
-  render() {
-    function afterImage() {
-      const imageContainer = document.getElementById('image-container')
-      imageURL -= 1
-      imageContainer.setAttribute('src', imageUrls[imageURL])
+  constructor() {
+    super()
+    this.state = {
+      imagesURL: [
+        'https://i.ibb.co/xhYs1zd/image-deep-earth.jpg',
+        'https://i.ibb.co/ZWN2H8Q/image-pocket-borealis.jpg',
+        'https://i.ibb.co/6RVFmz5/image-fisheye.jpg',
+        'https://i.ibb.co/nbZBLzR/image-curiosity.jpg',
+        'https://i.ibb.co/wy5kkHc/image-from-above.jpg'
+      ],
+      imageURL: 0,
+      isActive: true,
+    }
+  }
+
+  nextImage = () => {
+    this.setState(state => {
+      return { imageURL: state.imageURL + 1 }
+    })
+  }
+
+  previousImage = () => {
+    this.setState(state => {
+      return { imageURL: state.imageURL - 1 }
+    })
+  }
+
+  componentDidMount() {
+    const isFirsImage = this.state.imageURL === 0;
+
+    if (isFirsImage) {
+      document.getElementById('button-previous').setAttribute('disabled', '')
+    }
+  }
+
+  componentDidUpdate() {
+    const previousButton = document.getElementById('button-previous');
+    const nextButton = document.getElementById('button-next');
+    const isFirsImage = this.state.imageURL === 0;
+    const isLastImage = this.state.imageURL === this.state.imagesURL.length - 1;
+
+    if (isFirsImage) {
+      previousButton.setAttribute('disabled', '')
+    } else {
+      previousButton.removeAttribute('disabled', '')
     }
 
-    function nextImage() {
-      const imageContainer = document.getElementById('image-container')
-      imageURL += 1
-      imageContainer.setAttribute('src', `${imageUrls[imageURL]}`)
+    if (isLastImage) {
+      nextButton.setAttribute('disabled', '')
+    } else {
+      nextButton.removeAttribute('disabled', '')
     }
+  }
+
+  render() {
+    let { imageURL, imagesURL } = this.state;
+
     const instructions = [
       <span>Usa cinco imágenes de internet de tu elección y reemplaza el arreglo imageUrls con sus respectivas urls.</span>,
       <span>Muestra una de las imágenes en el elemento img.</span>,
@@ -39,11 +72,11 @@ export default class Exercise05 extends Component {
 
         <div>
           <div>
-            <img src={imageUrls[imageURL]} alt="" id="image-container" />
+            <img src={imagesURL[imageURL]} alt="" id="image-container" />
           </div>
           <div>
-            <button onClick={afterImage}>Anterior</button>
-            <button onClick={nextImage}>Siguiente</button>
+            <button id="button-previous" onClick={this.previousImage}>Anterior</button>
+            <button id="button-next" onClick={this.nextImage}>Siguiente</button>
           </div>
         </div>
       </PageView>
