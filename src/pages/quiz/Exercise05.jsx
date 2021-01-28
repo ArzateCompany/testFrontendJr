@@ -13,7 +13,6 @@ export default class Exercise05 extends Component {
         'https://i.ibb.co/wy5kkHc/image-from-above.jpg'
       ],
       imageURL: 0,
-      isActive: true,
     }
   }
 

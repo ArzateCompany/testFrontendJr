@@ -24,3 +24,16 @@ table tbody tr:nth-child(3n) {
   object-fit: contain;
   background-color: black;
 }
+
+.table__eje-x {
+  grid-row: 2;
+  grid-column: 2 / 8;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: 1fr;
+  grid-gap: 5px
+}
+
+.table__eje-y {
+  display: grid;
+}
